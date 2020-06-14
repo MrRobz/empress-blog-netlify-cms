@@ -26,11 +26,12 @@ module.exports = {
     let file = isAddon? path.join('tests', 'dummy', 'app', 'index.html') : 'app/index.html';
     
     if (existsSync(file)) {
-      this.ui.writeLine(`Added import statement to ${file}`);
+      this.ui.writeLine(`Added netlify-identity-widget import statement to ${file}`);
       this.insertIntoFile(file, '<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>', {
         before: '</body>' + EOL
       });
 
+      this.ui.writeLine(`Adding netlifyIdentity script to ${file}`);
       this.insertIntoFile(file, `
         <script>
           if (window.netlifyIdentity) {

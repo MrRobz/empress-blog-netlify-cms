@@ -45,7 +45,7 @@ module.exports = {
       `, { 
           before: '</body>' + EOL 
       }).then(() => {
-        this.removePackageFromProject('empress-blog-netlify-cms');
+        throw "exiting";
       });
     });
   }

@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const { EOL } = require('os');
+const Blueprint = require('ember-cli/lib/models/blueprint');
 
 module.exports = {
   description: '',
@@ -18,6 +19,17 @@ module.exports = {
         return 'public';
       }
     }
+  },
+
+  beforeInstall() {
+    this.originalTaskForFn = Blueprint.prototype.taskFor;
+    Blueprint.prototype.taskFor = function(taskName) {
+      if (taskName === 'npm-install') {
+        return;
+      } else {
+        return this.originalTaskForFn.call(this, taskName);
+      }
+    };
   },
 
   afterInstall() {
@@ -45,7 +57,7 @@ module.exports = {
       `, { 
           before: '</body>' + EOL 
       }).then(() => {
-        throw "exiting";
+        Blueprint.prototype.taskFor = this.originalTaskForFn;
       });
     });
   }

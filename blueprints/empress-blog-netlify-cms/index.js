@@ -1,7 +1,6 @@
 'use strict';
 const path = require('path');
 const { EOL } = require('os');
-const { existsSync } = require('fs');
 
 module.exports = {
   description: '',
@@ -25,14 +24,13 @@ module.exports = {
     let isAddon = this.project.isEmberCLIAddon();
     let file = isAddon? path.join('tests', 'dummy', 'app', 'index.html') : 'app/index.html';
     
-    if (existsSync(file)) {
-      this.ui.writeLine(`Added netlify-identity-widget import statement to ${file}`);
-      this.insertIntoFile(file, '<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>', {
-        before: '</body>' + EOL
-      });
+    this.ui.writeLine(`Adding netlify-identity-widget script to ${file}`);
 
-      this.ui.writeLine(`Adding netlifyIdentity script to ${file}`);
-      this.insertIntoFile(file, `
+    return this.insertIntoFile(file, '\t\t<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>', {
+      before: '</body>' + EOL
+    }).then(() => {
+      this.ui.writeLine(`Adding netlifyIdentity redirect script to ${file}`);
+      return this.insertIntoFile(file, `
         <script>
           if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", user => {
@@ -44,9 +42,11 @@ module.exports = {
             });
           }
         </script>
-      `, {
-        before: '</body>' + EOL
+      `, { 
+          before: '</body>' + EOL 
+      }).then(() => {
+        this.removePackageFromProject('empress-blog-netlify-cms');
       });
-    }
+    });
   }
 };

@@ -6,10 +6,8 @@ module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     // Add options here
     'empress-blog-netlify-cms': {
-      "backend": {
-        "name": "robin",
-        "branch": "test"
-      },
+      "netlify-config": {
+      }
     }
   });
 

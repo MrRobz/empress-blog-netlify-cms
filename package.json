@@ -20,7 +20,8 @@
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
     "test:ember": "ember test",
-    "test:ember-compatibility": "ember try:each"
+    "test:ember-compatibility": "ember try:each",
+    "postpublish" : "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags"
   },
   "dependencies": {
     "broccoli-file-creator": "^2.1.1",

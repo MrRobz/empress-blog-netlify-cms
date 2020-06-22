@@ -23,9 +23,7 @@
     "test:ember-compatibility": "ember try:each"
   },
   "dependencies": {
-    "broccoli-merge-files": "^0.8.0",
     "ember-cli-babel": "^7.18.0",
-    "ember-cli-htmlbars": "^4.2.3",
     "yaml": "^1.10.0"
   },
   "devDependencies": {

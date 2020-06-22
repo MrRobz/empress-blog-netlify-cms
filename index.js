@@ -1,9 +1,9 @@
 'use strict';
-const Funnel = require('broccoli-funnel');
-const path = require('path');
 const YAML = require('yaml');
-const Plugin = require('broccoli-plugin');
-const { readFileSync, writeFileSync, mkdirSync } = require('fs');
+const writeFile = require('broccoli-file-creator');
+const mergeTrees = require('broccoli-merge-trees');
+const netlifyConfigTemplate = require('./netlify-templates/config');
+const netlifyIndexHtmlTemplate = require('./netlify-templates/index');
 
 module.exports = {
   name: require('./package').name,
@@ -13,10 +13,20 @@ module.exports = {
     let options = typeof app.options === 'object' ? app.options : {};
     let addonConfig = options['empress-blog-netlify-cms'] || {};
 
-    let funnel = new Funnel(path.join(this.root, 'public', 'admin'));
-    return new NetlifyCMSFiles([ funnel ], {
-      netlifyConfig: addonConfig['netlify-config'] || {}
-    });
+    let netlifyConfigJson = YAML.parse(netlifyConfigTemplate);
+    Object.assign(netlifyConfigJson, addonConfig['netlify-config'] || {});
+    let netlifyConfigOutputYml = YAML.stringify(netlifyConfigJson);
+
+    const netlifyConfigTree = writeFile(
+      'admin/config.yml',
+      netlifyConfigOutputYml
+    );
+    const netlifyIndexHtmlTree = writeFile(
+      'admin/index.html',
+      netlifyIndexHtmlTemplate
+    );
+
+    return mergeTrees([netlifyConfigTree, netlifyIndexHtmlTree]);
   },
 
   contentFor(type) {
@@ -41,24 +51,3 @@ module.exports = {
     }
   }
 };
-
-class NetlifyCMSFiles extends Plugin {
-  constructor(inputNode, options) {
-    super(...arguments);
-
-    this.options = options;
-  }
-
-  build() {
-    let netlifyHtml = readFileSync(path.join(this.inputPaths[0], 'index.html'), { encoding:'utf8' });
-    let defaultNetlifyConfigYml = readFileSync(path.join(this.inputPaths[0], 'config.yml'), { encoding:'utf8' });
-
-    let netlifyConfigJson = YAML.parse(defaultNetlifyConfigYml);
-    Object.assign(netlifyConfigJson, this.options.netlifyConfig);
-    let netlifyConfigOutputYml = YAML.stringify(netlifyConfigJson);
-
-    mkdirSync(path.join(this.outputPath, 'admin'));
-    writeFileSync(path.join(this.outputPath, 'admin', 'index.html'), netlifyHtml, { encoding:'utf8' });
-    writeFileSync(path.join(this.outputPath, 'admin', 'config.yml'), netlifyConfigOutputYml, { encoding:'utf8' });
-  }
-}

@@ -1,3 +1,4 @@
+module.exports = `
 backend:
   name: git-gateway
   branch: master
@@ -50,3 +51,4 @@ collections:
       - { name: "name", label: "Name", widget: "string" }
       - { name: "image", label: "Image", widget: "image", required: false }
       - { name: "body", label: "Body", widget: "markdown", required: false }
+`;

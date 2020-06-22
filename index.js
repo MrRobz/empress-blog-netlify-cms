@@ -2,8 +2,7 @@
 const YAML = require('yaml');
 const writeFile = require('broccoli-file-creator');
 const mergeTrees = require('broccoli-merge-trees');
-const netlifyConfigTemplate = require('./netlify-templates/config');
-const netlifyIndexHtmlTemplate = require('./netlify-templates/index');
+const { readFileSync } = require('fs');
 
 module.exports = {
   name: require('./package').name,
@@ -13,7 +12,7 @@ module.exports = {
     let options = typeof app.options === 'object' ? app.options : {};
     let addonConfig = options['empress-blog-netlify-cms'] || {};
 
-    let netlifyConfigJson = YAML.parse(netlifyConfigTemplate);
+    let netlifyConfigJson = YAML.parse(readFileSync('./netlify-templates/config.yml', 'utf8'));
     Object.assign(netlifyConfigJson, addonConfig['netlify-config'] || {});
     let netlifyConfigOutputYml = YAML.stringify(netlifyConfigJson);
 
@@ -23,7 +22,7 @@ module.exports = {
     );
     const netlifyIndexHtmlTree = writeFile(
       'admin/index.html',
-      netlifyIndexHtmlTemplate
+      readFileSync('./netlify-templates/index.html', 'utf8')
     );
 
     return mergeTrees([netlifyConfigTree, netlifyIndexHtmlTree]);

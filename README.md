@@ -27,7 +27,9 @@ Usage
 ------------------------------------------------------------------------------
 
 * Install `empress-blog-netlify-cms` to the empress-blog project.
-* Enable [Identity](https://docs.netlify.com/visitor-access/identity/#enable-identity-in-the-ui) in your netlify prject.
+* Enable [Identity](https://docs.netlify.com/visitor-access/identity/#enable-identity-in-the-ui) in your netlify project.
+
+Go to `netlify-hosted-url/admin/index.html` in browser to view the content management system.
 
 For detailed instruction check this [blog post](https://www.mylittletechlife.com/integrate-netlify-cms-with-empress-blog).
 

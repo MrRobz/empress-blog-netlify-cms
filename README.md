@@ -29,6 +29,8 @@ Usage
 * Install `empress-blog-netlify-cms` to the empress-blog project.
 * Enable [Identity](https://docs.netlify.com/visitor-access/identity/#enable-identity-in-the-ui) in your netlify prject.
 
+For detailed instruction check this [blog post](https://www.mylittletechlife.com/integrate-netlify-cms-with-empress-blog).
+
 By default addon configures Netlify CMS with [git-gateway](https://docs.netlify.com/visitor-access/git-gateway/#setup-and-settings) backend. You can change this though the addon options.
 
 Options
@@ -229,7 +231,7 @@ The default netlify-CMS config config is:
    ]
 }
 ```
-To view the default config in yml, clikc [here](https://github.com/MalayaliRobz/empress-blog-netlify-cms/blob/master/netlify-templates/config.yml). 
+To view the default config in yml, click [here](https://github.com/MalayaliRobz/empress-blog-netlify-cms/blob/master/netlify-templates/config.yml). 
 
 ### `modulePath`
 (_optional_, type: `string | Array<string>`, default: `undefined`)

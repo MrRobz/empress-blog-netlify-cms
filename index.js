@@ -3,7 +3,7 @@ const YAML = require('yaml');
 const writeFile = require('broccoli-file-creator');
 const mergeTrees = require('broccoli-merge-trees');
 const { readFileSync } = require('fs');
-const netlifyIndexGenerator = require('./netlify-templates/index');
+const netlifyIndexHtmlGenerator = require('./netlify-templates/index');
 
 module.exports = {
   name: require('./package').name,
@@ -28,10 +28,10 @@ module.exports = {
       `${publicPath}/config.yml`,
       netlifyConfigOutputYml
     );
-    
+
     const netlifyIndexHtmlTree = writeFile(
       `${publicPath}/index.html`,
-       netlifyIndexGenerator(modulePath)
+      netlifyIndexHtmlGenerator(modulePath)
     );
 
     return mergeTrees([netlifyConfigTree, netlifyIndexHtmlTree]);

@@ -44,6 +44,7 @@ But if you wish to modify or enhance the default implementation, there are a cou
 (_optional_, type: `Object`)
 
 Use this to modify the default netlify-CMS config file. Object passed here will me be merged with the default config object.
+For options available check out [netlify docs](https://www.netlifycms.org/docs/configuration-options/).
 
 ember-cli-build.js
 ```javascript

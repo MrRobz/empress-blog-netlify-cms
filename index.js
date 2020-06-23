@@ -2,6 +2,7 @@
 const YAML = require('yaml');
 const writeFile = require('broccoli-file-creator');
 const mergeTrees = require('broccoli-merge-trees');
+const path = require('path');
 const { readFileSync } = require('fs');
 const netlifyIndexHtmlGenerator = require('./netlify-templates/index');
 
@@ -20,7 +21,7 @@ module.exports = {
     let publicPath = addonConfig.publicPath || 'admin';
     let modulePath = addonConfig.modulePath;
     
-    let netlifyConfigJson = YAML.parse(readFileSync('./netlify-templates/config.yml', 'utf8'));
+    let netlifyConfigJson = YAML.parse(readFileSync(path.resolve(__dirname, './netlify-templates/config.yml'), 'utf8'));
     Object.assign(netlifyConfigJson, addonConfig['netlify-config'] || {});
     let netlifyConfigOutputYml = YAML.stringify(netlifyConfigJson);
 

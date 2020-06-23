@@ -1,6 +1,6 @@
 empress-blog-netlify-cms
 ==============================================================================
-empress-blog-netlify-cms aims to integrat Netlify CMS with empress-blog.
+empress-blog-netlify-cms aims to integrate Netlify CMS with empress-blog.
 
 [Empress-blog](https://github.com/empress/empress-blog) is a fully-functional, static site implementation of a blog system built on EmberJS.
 

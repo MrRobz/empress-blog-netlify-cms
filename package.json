@@ -1,13 +1,13 @@
 {
   "name": "empress-blog-netlify-cms",
   "version": "0.0.2",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Addon to integrate netlify-cms with empress-blog.",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": "https://github.com/MalayaliRobz/empress-blog-netlify-cms",
   "license": "MIT",
-  "author": "",
+  "author": "Robin",
   "directories": {
     "doc": "doc",
     "test": "tests"
